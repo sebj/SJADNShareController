@@ -7,6 +7,10 @@ SJADNShareController
 
 It uses App.net's web post intent and opens the post box already filled in, in the user's browser.
 
+###TODO
+
+* Currently working on using a [Kiwi](http://kiwi-app.net) URL to post (kiwi://post?text=Hello%20World for example)
+
 ###Usage
 
 ####With NSSharingServicePickr (Mountain Lion only)
