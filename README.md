@@ -1,6 +1,8 @@
 SJADNShareController
 =====
 
+![SJADNShareController](screenshot.png)
+
 ###About
 
 `SJADNShareController` can be used to share text only (at the moment) to [App.net](http://app.net), either as part of the sharing menu, on Mountain Lion, or alone.
@@ -12,7 +14,7 @@ The App.net icon used here is a tweaked version of the "appdotnet-icon-share" ic
 
 ###Usage
 
-####With NSSharingServicePickr (Mountain Lion only)
+####With NSSharingServicePicker (Mountain Lion only)
 
 If you already have an `NSButton` and suitable `NSSharingServicePicker` code written, simply set your `NSSharingServicePicker`'s delegate to be `SJADNShareController`.
 
