@@ -5,7 +5,10 @@ SJADNShareController
 
 `SJADNShareController` can be used to share text only (at the moment) to [App.net](http://app.net), either as part of the sharing menu, on Mountain Lion, or alone.
 
-It uses App.net's web post intent and opens the post box already filled in, in the user's browser.
+It uses App.net's web post intent and opens the post box already filled in, in the user's browser, if they are logged in.
+
+The App.net icon used here is a tweaked version of the "appdotnet-icon-share" icon which can be downloaded on the [App.net Developer Assets page](https://account.app.net/legal/assets/).
+
 
 ###Usage
 
@@ -31,6 +34,5 @@ Use `shareItems:`. Example:
 
 * Currently working on using a [Kiwi](http://kiwi-app.net) URL to post (kiwi://post?text=Hello%20World for example)
 
-###License
-
-<a rel="license" href="http://creativecommons.org/licenses/by/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>.
+##License
+Share, make changes, use commercially if you wish. [Crediting "Seb Jachec"](https://twitter.com/iamsebj) would be nice, but is not necessary.

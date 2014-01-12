@@ -16,19 +16,14 @@
     return self;
 }
 
-//Used to encode text for the App.net intent URL
 - (NSString*)encodeToPercentEscapeString:(NSString *)string {
-    return (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(NULL,
-                                                                        (CFStringRef) string,
-                                                                        NULL,
-                                                                        (CFStringRef) @"!*'();:@&=+$,/?%#[]",
-                                                                        kCFStringEncodingUTF8);
+    return (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef)string, NULL, (CFStringRef)@"!*'();:@&=+$,/?%#[]", kCFStringEncodingUTF8);
 }
 
 //NSSharingServicePickerDelegate method to insert App.net option
 - (NSArray*)sharingServicePicker:(NSSharingServicePicker *)sharingServicePicker sharingServicesForItems:(NSArray *)items proposedSharingServices:(NSArray *)proposedServices {
     
-    NSMutableArray *sharingServices = [proposedServices mutableCopy];
+    NSMutableArray *sharingServices = proposedServices.mutableCopy;
     
     //Dropdown menu image for ADN
     NSImage *ADNImage = [NSImage imageNamed:@"adn"];
@@ -46,17 +41,11 @@
 
 //All-purpose sharing method, can be called from anywhere
 - (void)shareItems:(NSArray*)items {
-    NSString *postText = @"";
+    NSString *postText;
     
     for (id theItem in items) {
         if ([theItem isKindOfClass:[NSString class]]) {
-            if ([postText isEqualToString:@""]) {
-                //If "postText" is empty, set it to the string
-                postText = theItem;
-            } else {
-                //If "postText" isn't empty, append the string on a new line
-                postText = [postText stringByAppendingFormat:@"\n%@",theItem];
-            }
+            postText = postText? [postText stringByAppendingFormat:@"\n%@",theItem] : theItem;
         }
     }
     
@@ -76,7 +65,6 @@
     }
 }
 
-//Private: Share with any available apps
 - (BOOL)shareWithApps:(NSString*)encodedPostText {
     NSString *kiwi = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:@"com.yourhead.kiwi"];
     NSString *postURL = nil;
@@ -90,7 +78,6 @@
     }
 }
 
-//Private: Share using Alpha on Web
 - (BOOL)shareWithWeb:(NSString*)encodedPostText {
     NSString *postURL = [NSString stringWithFormat:@"https://alpha.app.net/intent/post?text=%@",encodedPostText];
     return [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:postURL]];

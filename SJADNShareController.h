@@ -7,10 +7,12 @@
 
 @interface SJADNShareController : NSObject <NSSharingServicePickerDelegate>
 
-//If YES, we try to use Mac app URL schemes
+//If YES, share controller will try to use Mac app URL schemes
 @property BOOL *shareViaLocalApps;
 
-//Shares the given items on App.net
+/*
+ * Shares the given items on App.net
+ */
 - (void)shareItems:(NSArray*)items;
 
 @end
