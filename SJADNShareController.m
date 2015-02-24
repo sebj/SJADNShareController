@@ -16,10 +16,6 @@
     return self;
 }
 
-- (NSString*)encodeToPercentEscapeString:(NSString *)string {
-    return (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef)string, NULL, (CFStringRef)@"!*'();:@&=+$,/?%#[]", kCFStringEncodingUTF8);
-}
-
 //NSSharingServicePickerDelegate method to insert App.net option
 - (NSArray*)sharingServicePicker:(NSSharingServicePicker *)sharingServicePicker sharingServicesForItems:(NSArray *)items proposedSharingServices:(NSArray *)proposedServices {
     
@@ -34,7 +30,7 @@
         
     }];
     
-    [sharingServices insertObject:ADNService atIndex:3];
+    [sharingServices insertObject:ADNService atIndex:sharingServices.count];
     
     return sharingServices;
 }
@@ -50,19 +46,16 @@
     }
     
     //Encode the post text, for URLs
-    NSString *encodedPostText = [self encodeToPercentEscapeString:postText];
+    NSString *encodedPostText = (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef)postText, NULL, (CFStringRef)@"!*'();:@&=+$,/?%#[]", kCFStringEncodingUTF8);
     
     BOOL shared = NO;
     if (_shareViaLocalApps) {
         //Try to share with local apps
         shared = [self shareWithApps:encodedPostText];
-        
-        //If unable to share with apps, share on web
-        if (!shared) [self shareWithWeb:encodedPostText];
-    } else {
-        //Share on web
-        shared = [self shareWithWeb:encodedPostText];
     }
+    
+    //Share on web
+    if (!shared) [self shareWithWeb:encodedPostText];
 }
 
 - (BOOL)shareWithApps:(NSString*)encodedPostText {
