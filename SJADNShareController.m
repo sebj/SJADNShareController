@@ -7,8 +7,7 @@
 
 @implementation SJADNShareController
 
-- (id)init
-{
+- (instancetype)init {
     self = [super init];
     if (self) {
         _shareViaLocalApps = YES;
@@ -23,14 +22,13 @@
     
     //Dropdown menu image for ADN
     NSImage *ADNImage = [NSImage imageNamed:@"adn"];
-    [ADNImage setTemplate:YES];
+    ADNImage.template = YES;
     
     NSSharingService *ADNService = [[NSSharingService alloc] initWithTitle:@"App.net" image:ADNImage alternateImage:ADNImage handler:^{
         [self shareItems:items];
-        
     }];
     
-    [sharingServices insertObject:ADNService atIndex:sharingServices.count];
+    [sharingServices addObject:ADNService];
     
     return sharingServices;
 }
@@ -59,12 +57,11 @@
 }
 
 - (BOOL)shareWithApps:(NSString*)encodedPostText {
-    NSString *kiwi = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:@"com.yourhead.kiwi"];
-    NSString *postURL = nil;
+    NSString *kiwi = [NSWorkspace.sharedWorkspace absolutePathForAppBundleWithIdentifier:@"com.yourhead.kiwi"];
     if (kiwi) {
         //Kiwi
-        postURL = [NSString stringWithFormat:@"kiwi://post?text=%@",encodedPostText];
-        return [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:postURL]];
+        NSString *postURL = [NSString stringWithFormat:@"kiwi://post?text=%@",encodedPostText];
+        return [NSWorkspace.sharedWorkspace openURL:[NSURL URLWithString:postURL]];
     } else {
         //Nothing to open with
         return NO;
@@ -73,7 +70,7 @@
 
 - (BOOL)shareWithWeb:(NSString*)encodedPostText {
     NSString *postURL = [NSString stringWithFormat:@"https://alpha.app.net/intent/post?text=%@",encodedPostText];
-    return [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:postURL]];
+    return [NSWorkspace.sharedWorkspace openURL:[NSURL URLWithString:postURL]];
 }
 
 @end
