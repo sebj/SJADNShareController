@@ -34,11 +34,14 @@
 }
 
 //All-purpose sharing method, can be called from anywhere
-- (void)shareItems:(NSArray*)items {
+- (void)shareItems:(nullable NSArray*)items {
+    
+    if (items.count < 1) return;
+    
     NSString *postText;
     
     for (id theItem in items) {
-        if ([theItem isKindOfClass:[NSString class]]) {
+        if ([theItem isKindOfClass:NSString.class]) {
             postText = postText? [postText stringByAppendingFormat:@"\n%@",theItem] : theItem;
         }
     }
@@ -57,8 +60,8 @@
 }
 
 - (BOOL)shareWithApps:(NSString*)encodedPostText {
-    NSString *kiwi = [NSWorkspace.sharedWorkspace absolutePathForAppBundleWithIdentifier:@"com.yourhead.kiwi"];
-    if (kiwi) {
+    NSString *kiwiPath = [NSWorkspace.sharedWorkspace absolutePathForAppBundleWithIdentifier:@"com.yourhead.kiwi"];
+    if (kiwiPath) {
         //Kiwi
         NSString *postURL = [NSString stringWithFormat:@"kiwi://post?text=%@",encodedPostText];
         return [NSWorkspace.sharedWorkspace openURL:[NSURL URLWithString:postURL]];

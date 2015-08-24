@@ -13,6 +13,6 @@
 /**
  * Shares the given items on App.net
  */
-- (void)shareItems:(NSArray*)items;
+- (void)shareItems:(nullable NSArray*)items;
 
 @end
